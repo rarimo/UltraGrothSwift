@@ -7,7 +7,7 @@ private let PROOF_SIZE = UInt64(4 * 1024 * 1024)
 private let PUB_SIGNALS_SIZE = UInt64(4 * 1024 * 1024)
 
 /// A class that provides methods for generating zk-SNARK proofs using the Groth16 protocol.
-class Groth16 {
+public class Groth16 {
     /// Generates a zk-SNARK proof using the Groth16 protocol.
     ///
     /// - Parameters:
@@ -48,7 +48,7 @@ class Groth16 {
 }
 
 /// A class that provides methods for generating zk-SNARK proofs using the UltraGroth protocol.
-class UltraGroth {
+public class UltraGroth {
     /// Generates a zk-SNARK proof using the UltraGroth protocol.
     ///
     /// - Parameters:
