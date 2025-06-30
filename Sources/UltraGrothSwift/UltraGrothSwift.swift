@@ -2,11 +2,11 @@ import Foundation
 
 import UltraGrothLib
 
+private let ERROR_SIZE = UInt64(256)
+private let PROOF_SIZE = UInt64(4 * 1024 * 1024)
+private let PUB_SIGNALS_SIZE = UInt64(4 * 1024 * 1024)
+
 class Groth16 {
-    static let ERROR_SIZE = UInt64(256)
-    static let PROOF_SIZE = UInt64(4 * 1024 * 1024)
-    static let PUB_SIGNALS_SIZE = UInt64(4 * 1024 * 1024)
-    
     public static func groth16Prover(_ zkey: Data, _ wtns: Data) throws -> (proof: Data, pubSignals: Data) {
         var proofSize = PROOF_SIZE
         var pubSignalsSize = PUB_SIGNALS_SIZE
@@ -37,7 +37,9 @@ class Groth16 {
         
         return (proof: proof, pubSignals: pubSignals)
     }
-    
+}
+
+class UltraGroth {
     public static func ultraGrothProver(_ zkey: Data, _ wtns: Data) throws -> (proof: Data, pubSignals: Data) {
         var proofSize = PROOF_SIZE
         var pubSignalsSize = PUB_SIGNALS_SIZE
@@ -68,20 +70,20 @@ class Groth16 {
         
         return (proof: proof, pubSignals: pubSignals)
     }
-    
-    private static func handleGroth16ProverError(
-        _ result: Int32,
-        _ errorBuffer: UnsafeMutablePointer<UInt8>
-    ) throws {
-        if result == PROVER_ERROR {
-            let errorMsg = String(bytes: Data(bytes: errorBuffer, count: Int(ERROR_SIZE)), encoding: .utf8)!
-                .replacingOccurrences(of: "\0", with: "")
-            
-            throw UltraGrothError.ProofGenerationError(errorMsg)
-        }
+}
+
+private func handleGroth16ProverError(
+    _ result: Int32,
+    _ errorBuffer: UnsafeMutablePointer<UInt8>
+) throws {
+    if result == PROVER_ERROR {
+        let errorMsg = String(bytes: Data(bytes: errorBuffer, count: Int(ERROR_SIZE)), encoding: .utf8)!
+            .replacingOccurrences(of: "\0", with: "")
         
-        if result == PROVER_ERROR_SHORT_BUFFER {
-            throw UltraGrothError.ProofGenerationBuffersTooShort
-        }
+        throw UltraGrothError.ProofGenerationError(errorMsg)
+    }
+    
+    if result == PROVER_ERROR_SHORT_BUFFER {
+        throw UltraGrothError.ProofGenerationBuffersTooShort
     }
 }
