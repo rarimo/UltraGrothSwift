@@ -6,7 +6,15 @@ private let ERROR_SIZE = UInt64(256)
 private let PROOF_SIZE = UInt64(4 * 1024 * 1024)
 private let PUB_SIGNALS_SIZE = UInt64(4 * 1024 * 1024)
 
+/// A class that provides methods for generating zk-SNARK proofs using the Groth16 protocol.
 class Groth16 {
+    /// Generates a zk-SNARK proof using the Groth16 protocol.
+    ///
+    /// - Parameters:
+    ///   - zkey: The zero-knowledge key data.
+    ///   - wtns: The witness data.
+    ///
+    /// - Returns: A tuple containing the proof data and public signals data encoded in JSON.
     public static func groth16Prover(_ zkey: Data, _ wtns: Data) throws -> (proof: Data, pubSignals: Data) {
         var proofSize = PROOF_SIZE
         var pubSignalsSize = PUB_SIGNALS_SIZE
@@ -39,7 +47,15 @@ class Groth16 {
     }
 }
 
+/// A class that provides methods for generating zk-SNARK proofs using the UltraGroth protocol.
 class UltraGroth {
+    /// Generates a zk-SNARK proof using the UltraGroth protocol.
+    ///
+    /// - Parameters:
+    ///   - zkey: The zero-knowledge key data.
+    ///   - wtns: The witness data.
+    ///
+    /// - Returns: A tuple containing the proof data and public signals data encoded in JSON.
     public static func ultraGrothProver(_ zkey: Data, _ wtns: Data) throws -> (proof: Data, pubSignals: Data) {
         var proofSize = PROOF_SIZE
         var pubSignalsSize = PUB_SIGNALS_SIZE
