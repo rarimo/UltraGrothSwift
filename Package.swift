@@ -22,8 +22,8 @@ let package = Package(
         ),
         .binaryTarget(
             name: "UltraGrothFramework",
-            url: "https://github.com/rarimo/ultragroth/releases/download/v0.1.0/UltraGroth.xcframework.zip",
-            checksum: "4941760accea17c97af3d0fd17a9263903ce9c1a18e4f1b635556ae437767e4b"
+            url: "https://github.com/rarimo/ultragroth/releases/download/v0.1.1/UltraGroth.xcframework.zip",
+            checksum: "9eb221e26a6568e863cf0524174b1445112887f8ea26ff3ee663d91e4d04850e"
         ),
         .testTarget(
             name: "UltraGrothSwiftTests",
